@@ -1,0 +1,25 @@
+sudo: required
+services:
+  - docker
+
+
+# test
+
+# build the image
+before_install:
+  - docker build -t eefth/react-test -f ./client/Dockerfile.dev ./client
+# run the tests
+script:
+  - docker run eefth/react-test npm run test -- --coverage
+
+# build the images
+after_success:
+  - docker build -t eefth/multi-client ./client
+  - docker build -t eefth/multi-nginx ./nginx
+  - docker build -t eefth/multi-server ./server
+  - docker build -t eefth/multi-worker ./worker
+
+# docker login
+
+
+# push images to docker hub
