@@ -19,14 +19,14 @@ after_success:
   - docker build -t eefth/multi-server ./server
   - docker build -t eefth/multi-worker ./worker
 
-# docker login
-- echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --password-stdin
+  # docker login
+  - echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --password-stdin
 
 # push images to docker hub
-docker push eefth/multi-client
-docker push eefth/multi-nginx
-docker push eefth/multi-server
-docker push eefth/multi-worker
+  - docker push eefth/multi-client
+  - docker push eefth/multi-nginx
+  - docker push eefth/multi-server
+  - docker push eefth/multi-worker
 
 deploy:
   provider: elasticbeanstalk
